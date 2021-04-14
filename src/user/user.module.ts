@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserCrudResolver } from '@generated/type-graphql';
+import { UserCrudResolver } from 'prisma/generated/type-graphql';
 
 @Module({
   providers: [UserCrudResolver],

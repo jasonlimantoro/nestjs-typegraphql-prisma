@@ -6152,6 +6152,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql-scalars@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "graphql-scalars@npm:1.9.0"
+  dependencies:
+    tslib: ~2.1.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: 8b287771004c00fcdc95e42e81b7b95f254c3ba70bbac75ea775140df8e94dc083a48b071233547936d8eaec61b56b96f800392374e2961226131badded6b704
+  languageName: node
+  linkType: hard
+
 "graphql-subscriptions@npm:^1.0.0, graphql-subscriptions@npm:^1.1.0":
   version: 1.2.1
   resolution: "graphql-subscriptions@npm:1.2.1"
@@ -8503,6 +8514,7 @@ __metadata:
     eslint-plugin-prettier: ^3.3.1
     graphql: ^15.5.0
     graphql-fields: ^2.0.3
+    graphql-scalars: ^1.9.0
     graphql-tools: ^7.0.4
     jest: ^26.6.3
     prettier: ^2.2.1
