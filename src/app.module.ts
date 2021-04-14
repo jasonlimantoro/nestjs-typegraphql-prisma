@@ -4,6 +4,7 @@ import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostModule } from './post/post.module';
+import { UserModule } from './user/user.module';
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,7 @@ const prisma = new PrismaClient();
       context: ({ req }) => ({ currentUser: req.user, prisma }),
     }),
     PostModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -15,6 +15,14 @@ type AggregatePost {
   sum: PostSumAggregate
 }
 
+type AggregateUser {
+  avg: UserAvgAggregate
+  count: UserCountAggregate
+  max: UserMaxAggregate
+  min: UserMinAggregate
+  sum: UserSumAggregate
+}
+
 input BoolNullableFilter {
   equals: Boolean
   not: NestedBoolNullableFilter
@@ -57,12 +65,19 @@ input IntWithAggregatesFilter {
 
 type Mutation {
   createManyPost(data: [PostCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createPost(data: PostCreateInput!): Post!
+  createUser(data: UserCreateInput!): User!
   deleteManyPost(where: PostWhereInput): AffectedRowsOutput!
+  deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
   deletePost(where: PostWhereUniqueInput!): Post
+  deleteUser(where: UserWhereUniqueInput!): User
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): AffectedRowsOutput!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertPost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
+  upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
 input NestedBoolNullableFilter {
@@ -226,10 +241,40 @@ input PostCreateInput {
   title: String!
 }
 
+input PostCreateManyAuthorInput {
+  content: String
+  id: Int
+  published: Boolean
+  title: String!
+}
+
+input PostCreateManyAuthorInputEnvelope {
+  data: [PostCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
 input PostCreateManyInput {
   authorId: Int!
   content: String
   id: Int
+  published: Boolean
+  title: String!
+}
+
+input PostCreateNestedManyWithoutAuthorInput {
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  create: [PostCreateWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+}
+
+input PostCreateOrConnectWithoutAuthorInput {
+  create: PostCreateWithoutAuthorInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateWithoutAuthorInput {
+  content: String
   published: Boolean
   title: String!
 }
@@ -285,6 +330,17 @@ enum PostScalarFieldEnum {
   title
 }
 
+input PostScalarWhereInput {
+  AND: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  authorId: IntFilter
+  content: StringNullableFilter
+  id: IntFilter
+  published: BoolNullableFilter
+  title: StringFilter
+}
+
 input PostScalarWhereWithAggregatesInput {
   AND: [PostScalarWhereWithAggregatesInput!]
   NOT: [PostScalarWhereWithAggregatesInput!]
@@ -314,6 +370,42 @@ input PostUpdateManyMutationInput {
   title: StringFieldUpdateOperationsInput
 }
 
+input PostUpdateManyWithWhereWithoutAuthorInput {
+  data: PostUpdateManyMutationInput!
+  where: PostScalarWhereInput!
+}
+
+input PostUpdateManyWithoutAuthorInput {
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutAuthorInput!]
+  create: [PostCreateWithoutAuthorInput!]
+  createMany: PostCreateManyAuthorInputEnvelope
+  delete: [PostWhereUniqueInput!]
+  deleteMany: [PostScalarWhereInput!]
+  disconnect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [PostUpdateManyWithWhereWithoutAuthorInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input PostUpdateWithWhereUniqueWithoutAuthorInput {
+  data: PostUpdateWithoutAuthorInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostUpdateWithoutAuthorInput {
+  content: NullableStringFieldUpdateOperationsInput
+  published: NullableBoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+}
+
+input PostUpsertWithWhereUniqueWithoutAuthorInput {
+  create: PostCreateWithoutAuthorInput!
+  update: PostUpdateWithoutAuthorInput!
+  where: PostWhereUniqueInput!
+}
+
 input PostWhereInput {
   AND: [PostWhereInput!]
   NOT: [PostWhereInput!]
@@ -332,10 +424,15 @@ input PostWhereUniqueInput {
 
 type Query {
   aggregatePost(cursor: PostWhereUniqueInput, orderBy: [PostOrderByInput!], skip: Int, take: Int, where: PostWhereInput): AggregatePost!
+  aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
   findFirstPost(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByInput!], skip: Int, take: Int, where: PostWhereInput): Post
+  findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): User
   groupByPost(by: [PostScalarFieldEnum!]!, having: PostScalarWhereWithAggregatesInput, orderBy: [PostOrderByInput!], skip: Int, take: Int, where: PostWhereInput): [PostGroupBy!]!
+  groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
   post(where: PostWhereUniqueInput!): Post
   posts(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByInput!], skip: Int, take: Int, where: PostWhereInput): [Post!]!
+  user(where: UserWhereUniqueInput!): User
+  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
@@ -418,6 +515,35 @@ input StringWithAggregatesFilter {
   startsWith: String
 }
 
+type User {
+  email: String!
+  id: Int!
+  name: String!
+}
+
+type UserAvgAggregate {
+  id: Float!
+}
+
+type UserCountAggregate {
+  _all: Int!
+  email: Int
+  id: Int!
+  name: Int
+}
+
+input UserCreateInput {
+  email: String!
+  name: String!
+  posts: PostCreateNestedManyWithoutAuthorInput
+}
+
+input UserCreateManyInput {
+  email: String!
+  id: Int
+  name: String!
+}
+
 input UserCreateNestedOneWithoutPostsInput {
   connect: UserWhereUniqueInput
   connectOrCreate: UserCreateOrConnectWithoutPostsInput
@@ -431,12 +557,71 @@ input UserCreateOrConnectWithoutPostsInput {
 
 input UserCreateWithoutPostsInput {
   email: String!
+  name: String!
+}
+
+type UserGroupBy {
+  avg: UserAvgAggregate
+  count: UserCountAggregate
+  email: String!
+  id: Int!
+  max: UserMaxAggregate
+  min: UserMinAggregate
+  name: String!
+  sum: UserSumAggregate
+}
+
+type UserMaxAggregate {
+  email: String
+  id: Int!
   name: String
+}
+
+type UserMinAggregate {
+  email: String
+  id: Int!
+  name: String
+}
+
+input UserOrderByInput {
+  email: SortOrder
+  id: SortOrder
+  name: SortOrder
 }
 
 input UserRelationFilter {
   is: UserWhereInput
   isNot: UserWhereInput
+}
+
+enum UserScalarFieldEnum {
+  email
+  id
+  name
+}
+
+input UserScalarWhereWithAggregatesInput {
+  AND: [UserScalarWhereWithAggregatesInput!]
+  NOT: [UserScalarWhereWithAggregatesInput!]
+  OR: [UserScalarWhereWithAggregatesInput!]
+  email: StringWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
+type UserSumAggregate {
+  id: Int!
+}
+
+input UserUpdateInput {
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  posts: PostUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateManyMutationInput {
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateOneRequiredWithoutPostsInput {
@@ -449,7 +634,7 @@ input UserUpdateOneRequiredWithoutPostsInput {
 
 input UserUpdateWithoutPostsInput {
   email: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input UserUpsertWithoutPostsInput {
@@ -463,7 +648,7 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   email: StringFilter
   id: IntFilter
-  name: StringNullableFilter
+  name: StringFilter
   posts: PostListRelationFilter
 }
 
