@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=nestjs_typegraphql_prisma
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5433:5432'
