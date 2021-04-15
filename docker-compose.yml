@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   postgres:
+    container_name: nestjs_typegraphql_prisma_postgres
     image: postgres:13.2
     environment:
       - POSTGRES_USER=postgres

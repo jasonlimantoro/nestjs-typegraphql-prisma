@@ -4361,7 +4361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:4.1.1":
+"commander@npm:4.1.1, commander@npm:^4.0.0":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
   checksum: 448585071bf8fb4c0bf9dd52abaee43dea086f801334caec2c8e8c9f456f8abc224c1614ccbbdbf7da5ac2524d230f13cf1fc86c233cf8a041ebecea7df106e9
@@ -4998,6 +4998,18 @@ __metadata:
   dependencies:
     ansi-colors: ^4.1.1
   checksum: e249bb97bf7d5a91d51081547ea5aa1d849604e5de74feff2c48f7174fc6c9dfcfeea42ef5536e9a3be58964a248c322d6897269ae7bba3e1b6d24f152d9d685
+  languageName: node
+  linkType: hard
+
+"env-cmd@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "env-cmd@npm:10.1.0"
+  dependencies:
+    commander: ^4.0.0
+    cross-spawn: ^7.0.0
+  bin:
+    env-cmd: bin/env-cmd.js
+  checksum: 181d08a72e590890c31534868988c433fc5a7e329a85d43a9c94896b2fef17c45e5cb2bbe697179be7f092415d1879c17f17e488a00068051864e1eebb6d159c
   languageName: node
   linkType: hard
 
@@ -8509,6 +8521,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.19.0
     apollo-server-express: ^2.22.2
     class-validator: ^0.13.1
+    env-cmd: ^10.1.0
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
     eslint-plugin-prettier: ^3.3.1
